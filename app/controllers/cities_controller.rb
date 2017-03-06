@@ -25,6 +25,7 @@ class CitiesController < ApplicationController
   # POST /cities.json
   def create
     @city = City.new(city_params)
+    @city.country_id = params[:city][:country_id]
     respond_to do |format|
       if @city.save
         format.html { redirect_to @city, notice: 'City was successfully created.' }
@@ -68,6 +69,7 @@ class CitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def city_params
-      params.require(:city).permit(:name, :population, :country_id)
+      params.require(:city).permit(:name, :population)
     end
+    # When using strong_parameters, include ', :country_id' in city_params and remove line #28. This is cleaner code.
 end
